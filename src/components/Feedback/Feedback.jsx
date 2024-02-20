@@ -1,9 +1,7 @@
-import css from './Feedback.module.css'
+import css from './Feedback.module.css';
 
-const Feedback = feedback => {
-  const { good, neutral, bad } = feedback.feedback;
-  const totalFeedback = good + neutral + bad;
-  const positive = Math.round(((good + neutral) / totalFeedback) * 100);
+const Feedback = ({ feedback, totalFeedback, positive }) => {
+  const { good, neutral, bad } = feedback;
 
   return (
     <ul className={css.stats}>

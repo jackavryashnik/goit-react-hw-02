@@ -1,16 +1,16 @@
-import css from './Options.module.css'
+import css from './Options.module.css';
 
-const Options = ({ onClick, obj, resetFeedback, totalFeedback }) => {
-  const capitalize = word => word[0].toUpperCase() + word.slice(1);
+const capitalize = word => word[0].toUpperCase() + word.slice(1);
 
+const Options = ({ onClick, feedbackOptions, resetFeedback, totalFeedback }) => {
   return (
     <div className={css.options}>
-      {Object.entries(obj).map(([key]) => (
+      {Object.entries(feedbackOptions).map(([key]) => (
         <button name={key} key={key} onClick={onClick}>
           {capitalize(key)}
         </button>
       ))}
-      {!totalFeedback ? '' : <button onClick={resetFeedback}>Reset</button>}
+      {totalFeedback != 0 && <button onClick={resetFeedback}>Reset</button>}
     </div>
   );
 };

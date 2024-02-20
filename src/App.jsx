@@ -3,6 +3,7 @@ import './App.css';
 import Description from './components/Description/Description';
 import Options from './components/Options/Options';
 import Feedback from './components/Feedback/Feedback';
+import Notification from './components/Notification/Notification';
 
 function App() {
   const [feedback, setFeedback] = useState(() => {
@@ -17,6 +18,9 @@ function App() {
   }, [feedback]);
 
   const totalFeedback = feedback.good + feedback.neutral + feedback.bad;
+  const positive = Math.round(
+    ((feedback.good + feedback.neutral) / totalFeedback) * 100
+  );
 
   const updateFeedback = event => {
     const name = event.target.name;
@@ -32,18 +36,22 @@ function App() {
   };
 
   return (
-    <div className='border-padding'>
+    <div className="border-padding">
       <Description />
       <Options
         onClick={updateFeedback}
-        obj={feedback}
+        feedbackOptions={feedback}
         resetFeedback={resetFeedback}
         totalFeedback={totalFeedback}
-      ></Options>
+      />
       {!totalFeedback ? (
-        'No feedback yet'
+        <Notification />
       ) : (
-        <Feedback feedback={feedback}></Feedback>
+        <Feedback
+          feedback={feedback}
+          totalFeedback={totalFeedback}
+          positive={positive}
+        />
       )}
     </div>
   );
